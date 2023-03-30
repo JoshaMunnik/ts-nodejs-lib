@@ -180,7 +180,7 @@ class UFLog {
      * @private
      */
     getFileName(aDate) {
-        return path.resolve(this.m_fileName.replace('$data$', aDate.getUTCFullYear() + '-' + UFText.twoDigits(1 + aDate.getUTCMonth()) + '-'
+        return path.resolve(this.m_fileName.replace('$date$', aDate.getUTCFullYear() + '-' + UFText.twoDigits(1 + aDate.getUTCMonth()) + '-'
             + UFText.twoDigits(aDate.getUTCDate())));
     }
     /**
