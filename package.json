@@ -1,6 +1,6 @@
 {
   "name": "@ultraforce/ts-nodejs-lib",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Various utility classes for use with nodejs.",
   "scripts": {
     "build": "tsc",
