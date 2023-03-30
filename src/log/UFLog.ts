@@ -208,9 +208,9 @@ class UFLog {
   private getFileName(aDate: Date): string {
     return path.resolve(
       this.m_fileName.replace(
-        '$data$',
+        '$date$',
         aDate.getUTCFullYear() + '-' + UFText.twoDigits(1 + aDate.getUTCMonth()) + '-'
-          + UFText.twoDigits(aDate.getUTCDate())
+        + UFText.twoDigits(aDate.getUTCDate())
       )
     );
   }
