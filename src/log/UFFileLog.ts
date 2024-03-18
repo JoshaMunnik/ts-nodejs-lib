@@ -2,16 +2,17 @@
 
 import {accessSync, constants, createWriteStream, WriteStream} from "fs";
 import path from "path";
-import {UFText} from "@ultraforce/ts-general-lib/dist";
+import {UFText} from "@ultraforce/ts-general-lib/dist/tools/UFText.js";
+import {IUFLog} from "./IUFLog.js";
 
 // endregion
 
 // region class
 
 /**
- * A simple class that writes log entries to a file and to the console.
+ * Implements {@link IUFLog} to write log entries to both a file and to the console.
  */
-class UFLog {
+class UFFileLog implements IUFLog {
   // region private variables
 
   /**
@@ -43,8 +44,8 @@ class UFLog {
    * Creates a log instance.
    *
    * @param {string} aFileName
-   *   Name of file including path. The file name may include the macro text '$date$', which will get replaced with
-   *   current date. This will create a log for every day.
+   *   Name of file including path. The file name may include the macro text '$date$', which will
+   *   get replaced with current date. This will group log entries per day.
    */
   constructor(aFileName: string) {
     this.m_fileName = aFileName;
@@ -55,51 +56,28 @@ class UFLog {
   // region public methods
 
   /**
-   * Writes a debug entry to the log. If there is a commandline argument 'nodebug' the data is not output to the
-   * console.
-   *
-   * @param {string} aPrefix
-   *   A prefix for the entry
-   * @param {...} aData
-   *   Additional entries to write
+   * @inheritDoc
    */
   debug(aPrefix: string, ...aData: any[]): void {
     this.add(process.argv.indexOf('nodebug') >= 0 ? null : console.debug, `[DEBUG:${aPrefix}]`, ...aData);
   }
 
   /**
-   * Writes an info entry to the log.
-   *
-   * @param {string} aPrefix
-   *   A prefix for the entry
-   * @param {...} aData
-   *   Additional entries to write
+   * @inheritDoc
    */
   info(aPrefix: string, ...aData: any[]): void {
     this.add(console.info, `[INFO:${aPrefix}]`, ...aData);
   }
 
   /**
-   * Writes an entry to the log.
-   *
-   * @param {...} aData
-   *   Entries to write
+   * @inheritDoc
    */
   log(...aData: any[]): void {
     this.add(console.log, `[LOG]`, ...aData);
   }
 
   /**
-   * Writes an error entry to the log.
-   *
-   * @param {string} aPrefix
-   *   A prefix for the entry
-   * @param {Error|*|null} anError
-   *   An error object to write or null to create a general error entry
-   * @param {string} aDescription
-   *   A description of the action that was being performed that caused the error
-   * @param {...} aData
-   *   Additional entries to write
+   * @inheritDoc
    */
   error(aPrefix: string, anError: (Error | any | null), aDescription: string = '', ...aData: any[]): void {
     if (anError instanceof Error) {
@@ -132,7 +110,7 @@ class UFLog {
   private add(aConsoleCallback: null | ((...data: any[]) => void), aPrefix: string, ...aData: any[]): void {
     const now = new Date();
     const stream = this.getStream(now);
-    const start = UFLog.createEntryStart(now, aPrefix);
+    const start = UFFileLog.createEntryStart(now, aPrefix);
     stream.write(start);
     this.writeEntries(stream, aData);
     stream.write('\n');
@@ -264,6 +242,6 @@ class UFLog {
 
 // region exports
 
-export {UFLog};
+export {UFFileLog};
 
 // endregion
