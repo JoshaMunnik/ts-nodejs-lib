@@ -1,5 +1,5 @@
 // log
-export * from './log/IUFLog';
-export * from './log/UFFileLog';
-export * from './log/UFConsoleLog';
+export * from './log/IUFLog.js';
+export * from './log/UFFileLog.js';
+export * from './log/UFConsoleLog.js';
 //# sourceMappingURL=index.js.map

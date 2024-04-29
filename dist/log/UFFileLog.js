@@ -1,7 +1,7 @@
 // region imports
 import { accessSync, constants, createWriteStream } from "fs";
 import path from "path";
-import { UFText } from "@ultraforce/ts-general-lib/dist";
+import { UFText } from "@ultraforce/ts-general-lib/dist/tools/UFText.js";
 // endregion
 // region class
 /**

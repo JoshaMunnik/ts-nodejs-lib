@@ -1,4 +1,4 @@
-import { IUFLog } from "./IUFLog";
+import { IUFLog } from "./IUFLog.js";
 /**
  * Implements {@link IUFLog} to write log entries to the console.
  */
